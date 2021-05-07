@@ -1,0 +1,17 @@
+all:
+
+valor = 5
+count = 0
+
+while [ $count = $valor ]; do
+
+	ns new.simulacao-localiza.tcl 100 0.002 $count 0.5 5 > 1-Saida-0.002
+	ns new.simulacao-localiza.tcl 100 0.003 $count 0.5 5 > 1-Saida-0.003
+	ns new.simulacao-localiza.tcl 100 0.004 $count 0.5 5 > 1-Saida-0.004
+	ns new.simulacao-localiza.tcl 100 0.005 $count 0.5 5 > 1-Saida-0.005
+	ns new.simulacao-localiza.tcl 100 0.006 $count 0.5 5 > 1-Saida-0.006
+	ns new.simulacao-localiza.tcl 100 0.007 $count 0.5 5 > 1-Saida-0.007
+	
+	count=`expr $count + 1`
+done
+	

@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+#define TAM_MAX 100000
+
+int main( int argc, char *argv[] ) {
+	float V[TAM_MAX];  //cada i-ésima posição deste vetor guarda o número de nós que recebem um pacote i
+	char nomeDoArquivo[120];
+	FILE *fp; // file pointer
+	int id_do_pacote, qtd_de_pacotes, i;
+	float soma , media, desvio_padrao;
+	if( argc != 2 ) {
+		printf( "\nErro de sintaxe!\nSintaxe correta: ./mediaDeNosDetectores <nomeDoArquivo> \n\n");
+		return 0;
+	}
+	fp = fopen( argv[1], "rt" );
+	if( fp == NULL ) {
+		printf("\nNao foi possivel abrir o arquivo.\n");
+		return 1;
+	}
+	
+	//=========================== Cálculo da média ========================= 
+	soma = i = 0;
+	qtd_de_pacotes = 1;
+	V[0] = 0;
+	while( !feof(fp) && i < TAM_MAX ) {
+		fscanf( fp, "%d" , &id_do_pacote );
+		soma++;
+		if( id_do_pacote != i ) {
+			qtd_de_pacotes++;
+			V[ id_do_pacote ] = 1;
+			i = id_do_pacote;
+		} else {
+			V[ id_do_pacote ]++;
+		}
+	}
+	V[ id_do_pacote ]--;
+	media =  (soma-1) / qtd_de_pacotes;
+	printf( "\nMedia de Detectores por pacote: %f\n", media );
+	
+	//======= Cálculo da variância ========================= 
+	soma = 0;
+	for( i = 0; i < TAM_MAX && i < qtd_de_pacotes; i++ ) {
+		//printf("\nV[%d] = %f \n", i, V[i] );
+		soma += ( (V[i] - media ) * ( V[i] - media ) ); // <-- desvio quadrático
+	}
+	//printf(" Soma %f", soma );
+	media = soma/qtd_de_pacotes; // Variância = media dos desvios quadráticos
+	printf("\n Variancia: %f\n", media);
+	return 0;
+}

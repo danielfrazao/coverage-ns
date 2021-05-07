@@ -1,0 +1,168 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//------------------------------------------- Funcoes Lagrange -------------------------------
+/*
+Funcao que faz o calculo da interpolacao pelo Polinomio de Lagrange 
+Entradas : valor a ser interpolado, o grau do polinomio,o vetor das abcissas, vetor das ordenadas
+Saida :Valor interpolado
+*/
+
+float polinomioLagrange(float xValor, int n, float *x, float *y){	
+    
+int i, j;
+float mult;
+float l = 0;
+
+	for(i=0;i<n;i++){
+	
+		mult = y[i];           
+	
+		for(j=0;j<n;j++){
+		
+			if(i!=j)
+	
+				mult = mult*((xValor - x[j])/(x[i] - x[j]));
+			
+
+		}
+
+	l = l + mult;	
+
+	}
+
+       return l;
+}    
+             
+/*
+Funcao que escolhe os melhores pontos para usar na interpolacao 
+Entradas : valor a ser interpolado, o numero de pontos,o vetor das abcissas, vetor das ordenadas
+Saida : melhores pontos para usar na interpolacao 
+*/
+
+int escolhePontos(int n, float xValor, int m, float *x){
+
+int i,j;
+int menor;
+int ini;
+int posicao = 0;
+
+	for(i=0;i<m;i++){
+		
+		if (xValor > x[i])
+		
+		menor = i;
+			
+	}
+
+	ini = menor;	
+	i = ini;
+	
+	while (i!=0){
+		 
+		if ((xValor - x[ini]) < (x[menor + 1] -xValor))
+		
+		ini --;
+	i--;
+		
+	}
+
+
+	i = menor;
+	
+	while ((i +1) < (m-1)){
+	
+		if((x[menor+1]-xValor)<(xValor-x[ini]))
+	
+			ini ++;
+	i++;
+
+	}
+
+	if((ini + n)> (m-1))
+
+		ini = m - n -1;
+
+
+	return ini; 
+}
+
+/* Funcao para chacar se o valor fornecido e valido para a operacao 
+Entrada: vetor abscissas, valor a ser interpolado e numero de pontos
+Saida : 1 se for valido , 0 ser nao for
+*/
+
+int checaValor(float *x,float xValor,int m){
+	
+	if((xValor < x[0]) || (xValor > x[m-1])){
+
+		return 0;
+	}
+	else {
+		return 1;
+	}
+
+	
+}
+
+
+/*Funcao que verifica se e possivel fazer a interpolacao com o numeros de pontos fornecidos
+se sem retorna 1 , senao retorna 0
+*/
+
+int novoGrauOuFim(int n,int m){
+
+	if ( (m) < (n + 1))
+		
+		return 0;
+
+	else {
+
+		return 1;
+
+	}
+     
+}
+
+//-----------------------------------Fim das Funcoes utilizadas por Lagrange-------------
+
+int main(int argc, char *argv[]){
+
+FILE *fp;   
+     
+     fp = fopen(argv[1],"r");
+     freopen("saidaInter","w",stdout);	 
+
+
+int ID_pacote;
+double x , y;
+int AuxPacote =0;
+int numPacRec=0;
+int aux=0;
+ID_pacote = 0;
+
+
+	while(!feof(fp)){
+
+		fscanf(fp,"%d",&ID_pacote);
+		fscanf(fp,"%lf",&x);		
+		fscanf(fp,"%lf",&y);
+		
+		
+		if (ID_pacote == AuxPacote){
+			numPacRec++;		
+		}
+
+		if (ID_pacote != AuxPacote){
+			numPacRec++;			
+			printf("%d\n",numPacRec);
+			numPacRec=0;
+			AuxPacote++;		
+		}
+	}
+	
+
+
+	return 0;		
+	
+}

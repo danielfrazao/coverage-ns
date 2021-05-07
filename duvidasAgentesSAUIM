@@ -1,0 +1,4 @@
+AGENTES
+	> Os nós (fixos e móveis) transmitirão o mesmo tipo de pacote ?
+		* Se for mesmo pacote poderemos definir apenas um(1) header (cabeçalho) e tb apenas uma classe
+		do pacote.

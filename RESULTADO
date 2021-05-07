@@ -1,0 +1,21 @@
+Tempo Inicial: 1
+
+Tempo Final: 50
+
+X:223.00 Y:223.00 
+
+Numero de Nos:100
+
+Numero de Celulas : 223
+
+Tempo de Rtt: 1.00
+
+Cobertura Global dos Nós da Rede: 95.57 
+
+Cobertura Sink com Buffer Ilimitado: 21.79 
+
+Cobertura Sink em um Intervalo de Tempo com Buffer Limitado: 16.82 
+
+Cobertura Relativa Global/SinkBufferIlimitado: 22.80 
+
+Cobertura Relativa em um Intervalo de Tempo Global/SinkBufferLimitado: 17.59 
